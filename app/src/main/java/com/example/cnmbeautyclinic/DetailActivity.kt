@@ -44,9 +44,9 @@ fun DetailScreen(nama: String, harga: String) {
 
         Button(
             onClick = {
-                val uri = Uri.parse("https://wa.me/6281234567890")
-                val intent = Intent(Intent.ACTION_VIEW, uri)
-                context.startActivity(intent)
+                val message = Uri.encode("Halo saya mau booking $nama")
+                val url = "https://wa.me/6289652457341?text=$message"
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
             },
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -56,9 +56,7 @@ fun DetailScreen(nama: String, harga: String) {
         Spacer(modifier = Modifier.height(10.dp))
 
         Button(
-            onClick = {
-                (context as Activity).finish()
-            },
+            onClick = { (context as Activity).finish() },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Kembali")

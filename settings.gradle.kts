@@ -22,6 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CNM Beauty Clinic"
+rootProject.name = "CNMBeautyClinic"
 include(":app")
- 

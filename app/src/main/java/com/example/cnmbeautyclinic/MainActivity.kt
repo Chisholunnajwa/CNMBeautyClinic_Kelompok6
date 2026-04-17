@@ -6,9 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,11 +19,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            WelcomeScreen(
-                onNext = {
-                    startActivity(Intent(this, MenuActivity::class.java))
-                }
-            )
+            WelcomeScreen {
+                startActivity(Intent(this, MenuActivity::class.java))
+            }
         }
     }
 }
@@ -41,23 +37,14 @@ fun WelcomeScreen(onNext: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
 
-        Text(
-            text = "Selamat Datang",
-            fontSize = 26.sp
-        )
-
-        Text(
-            text = "CNM Aesthetic Center",
-            fontSize = 20.sp
-        )
+        Text("Selamat Datang", fontSize = 26.sp)
+        Text("CNM Aesthetic Center", fontSize = 20.sp)
 
         Spacer(modifier = Modifier.height(40.dp))
 
         Button(
             onClick = onNext,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF6FA9)
-            )
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6FA9))
         ) {
             Text("NEXT")
         }
