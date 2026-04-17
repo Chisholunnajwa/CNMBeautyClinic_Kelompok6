@@ -1,65 +1,62 @@
 package com.example.cnmbeautyclinic
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.*
+import com.example.cnmbeautyclinic.navigation.Screen
+import com.example.cnmbeautyclinic.ui.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            WelcomeScreen(
-                onNext = {
-                    startActivity(Intent(this, MenuActivity::class.java))
+
+            val backStack = remember { mutableStateListOf<Screen>(Screen.Welcome) }
+            val current = backStack.last()
+
+            when (current) {
+
+                is Screen.Welcome -> WelcomeScreen {
+                    backStack.add(Screen.Menu)
                 }
-            )
-        }
-    }
-}
 
-@Composable
-fun WelcomeScreen(onNext: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFFFFF4EC))
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
+                is Screen.Menu -> MenuScreen(
+                    onKonsultasi = { backStack.add(Screen.Konsultasi) },
+                    onPrice = { backStack.add(Screen.Pricelist) },
+                    onLokasi = { backStack.add(Screen.Lokasi) }
+                )
 
-        Text(
-            text = "Selamat Datang",
-            fontSize = 26.sp
-        )
+                is Screen.Konsultasi -> KonsultasiScreen {
+                    backStack.removeLastOrNull()
+                }
 
-        Text(
-            text = "CNM Aesthetic Center",
-            fontSize = 20.sp
-        )
+                // 🔥 PRICELIST → BALIK KE MENU LANGSUNG
+                is Screen.Pricelist -> PricelistScreen(
+                    onBackToMenu = {
+                        backStack.clear()
+                        backStack.add(Screen.Menu)
+                    },
+                    onDetail = { nama: String, harga: String ->
+                        backStack.add(Screen.Detail(nama, harga))
+                    }
+                )
 
-        Spacer(modifier = Modifier.height(40.dp))
+                // 🔥 DETAIL → BOOKING BALIK KE MENU
+                is Screen.Detail -> DetailScreen(
+                    nama = current.nama,
+                    harga = current.harga,
+                    onBackToMenu = {
+                        backStack.clear()
+                        backStack.add(Screen.Menu)
+                    }
+                )
 
-        Button(
-            onClick = onNext,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFF6FA9)
-            )
-        ) {
-            Text("NEXT")
+                is Screen.Lokasi -> LokasiScreen {
+                    backStack.removeLastOrNull()
+                }
+            }
         }
     }
 }
