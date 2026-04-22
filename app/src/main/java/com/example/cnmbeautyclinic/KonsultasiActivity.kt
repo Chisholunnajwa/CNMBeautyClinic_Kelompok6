@@ -43,19 +43,19 @@ fun KonsultasiScreen(onBack: () -> Unit) {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
         }
 
-        Button(onClick = { openWA("Halo saya ingin konsultasi dengan dr Milla") }, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = { openWA("Halo saya ingin konsultasi dengan Dr Milla") }, modifier = Modifier.fillMaxWidth()) {
             Text("dr.Milla")
         }
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Button(onClick = { openWA("Halo saya ingin konsultasi dengan dr Fizka") }, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = { openWA("Halo saya ingin konsultasi dengan Dr Fizka") }, modifier = Modifier.fillMaxWidth()) {
             Text("dr.Fizka")
         }
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        Button(onClick = { openWA("Halo saya ingin konsultasi dengan dr Chisholun") }, modifier = Modifier.fillMaxWidth()) {
+        Button(onClick = { openWA("Halo saya ingin konsultasi") }, modifier = Modifier.fillMaxWidth()) {
             Text("dr.Chisholun")
         }
 
