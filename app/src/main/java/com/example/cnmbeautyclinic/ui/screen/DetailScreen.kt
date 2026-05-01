@@ -1,4 +1,4 @@
-package com.example.cnmbeautyclinic.ui
+package com.example.cnmbeautyclinic.ui.screen
 
 import android.content.Intent
 import android.net.Uri
@@ -8,85 +8,187 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
     nama: String,
     harga: String,
+    deskripsi: String,
+    manfaat: String,
     onBackToMenu: () -> Unit
 ) {
 
     val context = LocalContext.current
 
-    // STATE INPUT
-    var namaUser by remember { mutableStateOf("") }
-    var noHp by remember { mutableStateOf("") }
+    var namaUser by remember {
+        mutableStateOf("")
+    }
 
-    Column(Modifier.padding(20.dp)) {
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
 
-        Text("Detail Treatment")
-        Text("Treatment: $nama")
-        Text("Harga: $harga")
+    Scaffold(
 
-        Spacer(Modifier.height(20.dp))
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("Detail Treatment")
+                }
+            )
+        }
 
-        // INPUT NAMA
-        OutlinedTextField(
-            value = namaUser,
-            onValueChange = { namaUser = it },
-            label = { Text("Nama") },
-            modifier = Modifier.fillMaxWidth()
-        )
+    ) { padding ->
 
-        Spacer(Modifier.height(10.dp))
+        Column(
 
-        // INPUT NO HP
-        OutlinedTextField(
-            value = noHp,
-            onValueChange = { noHp = it },
-            label = { Text("No HP") },
-            modifier = Modifier.fillMaxWidth()
-        )
+            modifier = Modifier
+                .padding(padding)
+                .padding(16.dp)
+                .fillMaxSize()
 
-        Spacer(Modifier.height(20.dp))
-
-        // BUTTON BOOKING
-        Button(
-            onClick = {
-
-                val message = """
-                    Halo, saya ingin booking treatment
-                    
-                    Nama: $namaUser
-                    No HP: $noHp
-                    Treatment: $nama
-                    Harga: $harga
-                """.trimIndent()
-
-                val encodedMessage = URLEncoder.encode(
-                    message,
-                    StandardCharsets.UTF_8.toString()
-                )
-
-                val url = "https://wa.me/6289652457341?text=$encodedMessage"
-
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                context.startActivity(intent)
-
-                // BALIK KE MENU
-                onBackToMenu()
-            },
-            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Booking Now")
-        }
 
-        Spacer(Modifier.height(10.dp))
+            Text("Nama Treatment")
+            Text(nama)
 
-        Button(onClick = onBackToMenu) {
-            Text("Kembali")
+            Spacer(
+                Modifier.height(12.dp)
+            )
+
+            Text("Harga")
+            Text(harga)
+
+            Spacer(
+                Modifier.height(12.dp)
+            )
+
+            Text("Deskripsi")
+            Text(deskripsi)
+
+            Spacer(
+                Modifier.height(12.dp)
+            )
+
+            Text("Manfaat")
+            Text(manfaat)
+
+            Spacer(
+                Modifier.height(20.dp)
+            )
+
+            OutlinedTextField(
+
+                value = namaUser,
+
+                onValueChange = {
+                    namaUser = it
+                },
+
+                label = {
+                    Text("Masukkan Nama")
+                },
+
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(
+                Modifier.height(20.dp)
+            )
+
+            Button(
+
+                onClick = {
+
+                    if (namaUser.isBlank()) {
+                        return@Button
+                    }
+
+                    showDialog = true
+                },
+
+                modifier = Modifier.fillMaxWidth()
+
+            ) {
+                Text("Booking Now")
+            }
+
+            Spacer(
+                Modifier.height(10.dp)
+            )
+
+            OutlinedButton(
+
+                onClick = onBackToMenu,
+
+                modifier = Modifier.fillMaxWidth()
+
+            ) {
+                Text("Kembali")
+            }
         }
+    }
+
+    if (showDialog) {
+
+        AlertDialog(
+
+            onDismissRequest = {
+                showDialog = false
+            },
+
+            title = {
+                Text("Konfirmasi Booking")
+            },
+
+            text = {
+                Text("Yakin ingin booking treatment ini?")
+            },
+
+            confirmButton = {
+
+                TextButton(
+
+                    onClick = {
+
+                        showDialog = false
+
+                        val message =
+                            "Halo, saya $namaUser ingin booking $nama ($harga)"
+
+                        val uri =
+                            Uri.parse(
+                                "https://wa.me/6289652457341?text=$message"
+                            )
+
+                        context.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                uri
+                            )
+                        )
+
+                        onBackToMenu()
+                    }
+
+                ) {
+                    Text("Ya")
+                }
+            },
+
+            dismissButton = {
+
+                TextButton(
+
+                    onClick = {
+                        showDialog = false
+                    }
+
+                ) {
+                    Text("Batal")
+                }
+            }
+        )
     }
 }

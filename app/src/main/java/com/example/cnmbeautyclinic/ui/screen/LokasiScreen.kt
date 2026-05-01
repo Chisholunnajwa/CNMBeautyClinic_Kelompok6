@@ -1,4 +1,4 @@
-package com.example.cnmbeautyclinic.ui
+package com.example.cnmbeautyclinic.ui.screen
 
 import android.content.Intent
 import android.net.Uri

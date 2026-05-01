@@ -1,4 +1,4 @@
-package com.example.cnmbeautyclinic.ui
+package com.example.cnmbeautyclinic.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
