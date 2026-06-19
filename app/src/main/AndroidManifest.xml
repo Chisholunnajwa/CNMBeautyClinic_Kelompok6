@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".MyApplication"
-=======
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <application
->>>>>>> 216e546163397d823304350b9743247f90c3e34e
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,40 +12,27 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-<<<<<<< HEAD
-        android:theme="@style/Theme.CNMBeautyClinicKelompok_6">
-=======
-        android:theme="@style/Theme.CNMBeautyClinic">
+        android:theme="@style/Theme.CNMBeautyClinicKelompok_6"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".DetailActivity" />
         <activity android:name=".PricelistActivity" />
         <activity android:name=".KonsultasiActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".LokasiActivity" />
->>>>>>> 216e546163397d823304350b9743247f90c3e34e
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-<<<<<<< HEAD
-            android:theme="@style/Theme.CNMBeautyClinicKelompok_6">
+            android:label="@string/app_name">
 
-=======
-            android:theme="@style/Theme.CNMBeautyClinic">
->>>>>>> 216e546163397d823304350b9743247f90c3e34e
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-<<<<<<< HEAD
 
         </activity>
 
-=======
-        </activity>
->>>>>>> 216e546163397d823304350b9743247f90c3e34e
     </application>
 
 </manifest>

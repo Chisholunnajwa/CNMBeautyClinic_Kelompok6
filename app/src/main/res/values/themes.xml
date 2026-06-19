@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-<<<<<<< HEAD
     <style name="Theme.CNMBeautyClinicKelompok_6" parent="android:Theme.Material.Light.NoActionBar" />
-=======
-    <style name="Theme.CNMBeautyClinic" parent="android:Theme.Material.Light.NoActionBar" />
->>>>>>> 216e546163397d823304350b9743247f90c3e34e
 </resources>
